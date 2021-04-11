@@ -3,6 +3,7 @@ import Pages.MainPage;
 import Pages.TemperaturePage;
 import Temperature.TemperatureConverter;
 import com.codeborne.selenide.Configuration;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -25,16 +26,14 @@ public class TestTemperature {
 
     @BeforeClass
     public void SetUp() {
-        //driver = new FirefoxDriver();
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        Configuration.remote = "http://localhost:4444/wd/hub";
-        Configuration.browser = "firefox";
-        Configuration.browserSize = "1920x1080";
         DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName("firefox");
+        capabilities.setVersion("87.0");
+        capabilities.setPlatform(Platform.LINUX);
         capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", true);
-        Configuration.browserCapabilities = capabilities;
+        capabilities.setCapability("screenResolution", "1280x1024x24");
         driver = new RemoteWebDriver(capabilities);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://openweathermap.org/");
 
         main = new MainPage();

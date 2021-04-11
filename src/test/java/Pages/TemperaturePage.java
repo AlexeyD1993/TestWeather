@@ -1,6 +1,7 @@
 package Pages;
 
 import TableParcers.ResultTableParcer;
+import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class TemperaturePage {
     private WebDriver driver;
@@ -34,22 +37,23 @@ public class TemperaturePage {
         return temperature.getText();
     }
 
-    public void SwithTemperature() throws InterruptedException {
+    public void SwithTemperature() {
         //Ожидание прогрузки изменений температуры на странице
         //var waitLoadPage = new WebDriverWait(driver, 10);
-
-        //TODO надо разобраться с ожиданием доступности переключателя
-        Thread.currentThread().sleep(3000);
+        $(temperature).should(Condition.exist);
         if (temperatureSelector.getText().contains("°C")) {
             ChangeTempToFarengeith();
             //waitLoadPage.until(ExpectedConditions.attributeContains(farengieth, ".widget-switch.switch-blue .switch-input:checked + label[data-v-7bd695c3]", "color:#fff"));
+            $(farengieth).should(Condition.cssValue("color", "rgb(255, 255, 255)"));
         }
         else {
             ChangeTempToCelsius();
             //waitLoadPage.until(ExpectedConditions.textToBe(By.xpath("/html/body/main/div/div[1]/div/div/div[1]/div/div[2]/div/span"), "Metric: °C, m/s"));
+            $(celsius).should(Condition.cssValue("color", "rgb(255, 255, 255)"));
         }
+        //TODO надо разобраться с ожиданием доступности переключателя
+        //Thread.currentThread().sleep(3000);
 
-        Thread.currentThread().sleep(3000);
         return;
     }
 

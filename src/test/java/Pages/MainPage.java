@@ -50,6 +50,7 @@ public class MainPage {
     }
 
     public MainPage FindCity(String city) {
+        $(cityInput).should(Condition.enabled);
         cityInput.sendKeys(city);
         cityInput.submit();
 
