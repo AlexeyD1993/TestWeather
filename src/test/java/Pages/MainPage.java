@@ -1,6 +1,7 @@
 package Pages;
 
 import TableParcers.ResultTableParcer;
+import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selenide.$;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class MainPage {
@@ -52,8 +54,9 @@ public class MainPage {
         cityInput.submit();
 
         //Ожидание появления таблицы с результатами поиска
-        var firstResult = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.invisibilityOf(tableSearchResult));
+        //var firstResult = new WebDriverWait(driver, 10)
+        //        .until(ExpectedConditions.invisibilityOf(tableSearchResult));
+        $(tableSearchResult).shouldNot(Condition.visible);
         return this;
     }
 }
