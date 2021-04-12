@@ -31,6 +31,12 @@ public class MainPage {
     @FindBy(id = "pbar")
     private WebElement tableSearchResult;
 
+    @FindBy(xpath = "/html/body/main/div/div[2]/div[1]/div[1]/div[1]/h2")
+    private WebElement cityFindedResult;
+
+    @FindBy(xpath="/html/body/div[3]/div")
+    private WebElement loader;
+
     public void init(final WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -58,6 +64,8 @@ public class MainPage {
         //var firstResult = new WebDriverWait(driver, 10)
         //        .until(ExpectedConditions.invisibilityOf(tableSearchResult));
         $(tableSearchResult).shouldNot(Condition.visible);
+        //$(loader).should(Condition.not(Condition.exist));
+        //$(cityFindedResult).should(Condition.enabled);
         return this;
     }
 }

@@ -4,6 +4,7 @@ import TableParcers.ResultTableParcer;
 import com.codeborne.selenide.Condition;
 import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,8 +23,8 @@ public class CityResultPage {
     @FindBy(xpath = "//*[@id=\"pbar\"]")
     private WebElement loadResult;
 
-    @FindBy(xpath="/html/body/main/div/div[2]/div[1]/div[1]/div[2]/div[1]/span")
-    private WebElement temperature;
+    @FindBy(xpath="/html/body/div[3]/div")
+    private WebElement loader;
 
     public void init(final WebDriver driver) {
         this.driver = driver;
@@ -39,6 +40,10 @@ public class CityResultPage {
         //Ожидание прогрузки температуры на странице
         //WebElement waitLoadPage = new WebDriverWait(driver, 10)
         //        .until(ExpectedConditions.visibilityOf(temperature));
-        $(temperature).should(Condition.visible);
+//        try {
+//            $(loader).should(Condition.disappear);
+//        }
+//        catch (NoSuchElementException ex) {}
+        return;
     }
 }
