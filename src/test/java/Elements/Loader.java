@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class Loader {
     @FindBy(xpath="/html/body/div[3]/div")
-    public WebElement loaderElement;
+    private WebElement loaderElement;
 
     public void init(final WebDriver driver) {
         PageFactory.initElements(driver, this);
