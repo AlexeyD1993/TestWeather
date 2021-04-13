@@ -1,16 +1,14 @@
 package Pages;
 
+import Elements.Loader;
 import TableParcers.ResultTableParcer;
 import com.codeborne.selenide.Condition;
-import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -23,12 +21,13 @@ public class CityResultPage {
     @FindBy(xpath = "//*[@id=\"pbar\"]")
     private WebElement loadResult;
 
-    @FindBy(xpath="/html/body/div[3]/div")
-    private WebElement loader;
+    private Loader loader;
 
     public void init(final WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        loader = new Loader();
+        loader.init(driver);
     }
 
     public void SelectFirstCityTemperatureInList() {
@@ -36,14 +35,6 @@ public class CityResultPage {
         table.getCell(1, 2)
                 .findElement(By.xpath(".//b[1]"))
                 .click();
-
-        //Ожидание прогрузки температуры на странице
-        //WebElement waitLoadPage = new WebDriverWait(driver, 10)
-        //        .until(ExpectedConditions.visibilityOf(temperature));
-//        try {
-//            $(loader).should(Condition.disappear);
-//        }
-//        catch (NoSuchElementException ex) {}
-        return;
+        loader.waitLoad();
     }
 }

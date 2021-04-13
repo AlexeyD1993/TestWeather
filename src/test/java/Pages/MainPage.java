@@ -1,20 +1,13 @@
 package Pages;
 
-import TableParcers.ResultTableParcer;
 import com.codeborne.selenide.Condition;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class MainPage {
     private WebDriver driver;
@@ -29,13 +22,10 @@ public class MainPage {
     private WebElement cityInput;
 
     @FindBy(id = "pbar")
-    private WebElement tableSearchResult;
+    private WebElement tableErrorSearchResult;
 
     @FindBy(xpath = "/html/body/main/div/div[2]/div[1]/div[1]/div[1]/h2")
     private WebElement cityFindedResult;
-
-    @FindBy(xpath="/html/body/div[3]/div")
-    private WebElement loader;
 
     public void init(final WebDriver driver) {
         this.driver = driver;
@@ -56,16 +46,14 @@ public class MainPage {
     }
 
     public MainPage FindCity(String city) {
+        //Ожидание прогрузки страницы
         $(cityInput).should(Condition.enabled);
+
         cityInput.sendKeys(city);
         cityInput.submit();
 
         //Ожидание появления таблицы с результатами поиска
-        //var firstResult = new WebDriverWait(driver, 10)
-        //        .until(ExpectedConditions.invisibilityOf(tableSearchResult));
-        $(tableSearchResult).shouldNot(Condition.visible);
-        //$(loader).should(Condition.not(Condition.exist));
-        //$(cityFindedResult).should(Condition.enabled);
+        $(tableErrorSearchResult).shouldNot(Condition.visible);
         return this;
     }
 }

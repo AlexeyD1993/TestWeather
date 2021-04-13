@@ -2,10 +2,8 @@ import Pages.CityResultPage;
 import Pages.MainPage;
 import Pages.TemperaturePage;
 import Temperature.TemperatureConverter;
-import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
@@ -56,13 +54,13 @@ public class TestTemperature {
     }
 
     @Test(dataProvider = "cityNames")
-    public void CheckTempConvert(String city) throws InterruptedException {
+    public void CheckTempConvert(String city) {
         main.FindCity(city);
         cities.SelectFirstCityTemperatureInList();
 
         //temperature.ChangeTempToCelsius();
         TemperatureConverter converter = new TemperatureConverter(temperature.GetTemperature());
-        temperature.SwithTemperature();
+        temperature.SwitchTemperature();
         String switchedTemp = temperature.GetTemperature();
         assertEquals(switchedTemp, converter.get_changedTemperature());
     }
